@@ -58,7 +58,7 @@ OBS StudioとInput Overlayは別途導入してください。OBS Studio 33.0.0�
 
 3. Input Overlayソース側でゲームパッドを選び、入力に応じて表示が変わるか確認します。反応しない場合は、Input Overlayプラグインの設定でゲームパッドフックを確認してください。
 
-各テーマのPNG2種類は、それぞれのテーマ用JSONを共用します。Sara版には猫耳のLB/RB、長円形のLT/RT、肉球スティック、猫目風のView/Menu、鼻と口のHOMEがあります。Sara版のOBS実機表示は未確認です。Controllerだけを使う場合、Input OverlayプラグインのWebSocketサーバーは不要です。
+各テーマのPNG2種類は、それぞれのテーマ用JSONを共用します。Sara版には猫耳のLB/RB、長円形のLT/RT、肉球スティック、猫目風のView/Menu、鼻と口のHOMEがあります。Controllerだけを使う場合、Input OverlayプラグインのWebSocketサーバーは不要です。
 
 ## 対応する入力
 

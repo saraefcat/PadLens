@@ -58,7 +58,7 @@ See the [detailed installation guide](../docs/installation.md). Keep the `contro
 
 3. Select the gamepad in the Input Overlay source and check that input changes the display. If it does not, check the gamepad hook in the Input Overlay plugin settings.
 
-Each theme's two PNGs share its own JSON. Sara uses cat-ear LB/RB, oval LT/RT indicators, paw-print sticks, eye-shaped View/Menu controls, and a nose-and-mouth HOME control. Sara's OBS rendering remains unverified. The plugin WebSocket server is not needed when using Controller alone.
+Each theme's two PNGs share its own JSON. Sara uses cat-ear LB/RB, oval LT/RT indicators, paw-print sticks, eye-shaped View/Menu controls, and a nose-and-mouth HOME control. The plugin WebSocket server is not needed when using Controller alone.
 
 ## Supported inputs
 

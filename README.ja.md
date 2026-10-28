@@ -10,7 +10,7 @@ PadLensは、[OBS Studio](https://obsproject.com/)と[Input Overlay](https://git
 
 **Controller Overlay** — 透過したコントローラーに現在の入力を表示します。
 
-Saraテーマには、猫耳のLB/RB、長円形のLT/RT、肉球スティック、猫目風のView/Menu、鼻と口のHOMEがあります。Sara版のOBS実機表示は未確認です。
+Saraテーマには、猫耳のLB/RB、長円形のLT/RT、肉球スティック、猫目風のView/Menu、鼻と口のHOMEがあります。
 
 <a href="docs/images/controller-preview.png"><img src="docs/images/controller-preview.png" alt="合成背景上のController表示" width="600"></a>
 

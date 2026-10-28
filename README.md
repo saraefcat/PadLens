@@ -10,7 +10,7 @@ PadLens displays current and recent gamepad input in [OBS Studio](https://obspro
 
 **Controller Overlay** shows current input on a translucent controller. A standard and a lighter transparency PNG are available.
 
-The Sara theme adds cat-ear LB/RB, oval LT/RT indicators, paw-print sticks, eye-shaped View/Menu controls, and a nose-and-mouth HOME control. Its OBS rendering has not yet been physically verified.
+The Sara theme adds cat-ear LB/RB, oval LT/RT indicators, paw-print sticks, eye-shaped View/Menu controls, and a nose-and-mouth HOME control.
 
 <a href="docs/images/controller-preview.png"><img src="docs/images/controller-preview.png" alt="Controller on a synthetic background" width="600"></a>
 
