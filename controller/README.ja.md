@@ -34,8 +34,13 @@ OBS StudioとInput Overlayは別途導入してください。OBS Studio 33.0.0�
 | `controller_atlas.png` | 標準版の画像 | 含む |
 | `controller_atlas_light.png` | 高透過版の画像 | 含む |
 | `controller_layout.json` | 両画像で共通のInput Overlay配置 | 含む |
+| `controller_atlas_sara.png` | Sara通常版の画像 | 含む |
+| `controller_atlas_sara_rta.png` | Sara RTA版の画像 | 含む |
+| `controller_layout_sara.json` | Sara版2画像で共通の配置 | 含む |
 | `build_controller_overlay.py` | 開発者向けの画像生成 | 含まない |
 | `verify_layout.py` | 開発者向けの画像・配置検査 | 含まない |
+| `build_sara_overlay.py` | 開発者向けSara画像生成。PillowとCairoSVGが必要 | 含まない |
+| `verify_sara_layout.py` | 開発者向けSara画像・配置検査。Pillowが必要 | 含まない |
 
 ## 導入方法
 
@@ -48,10 +53,12 @@ OBS StudioとInput Overlayは別途導入してください。OBS Studio 33.0.0�
    | --- | --- | --- |
    | 標準版 | `controller_atlas.png` | `controller_layout.json` |
    | 高透過版 | `controller_atlas_light.png` | `controller_layout.json` |
+   | Sara通常版 | `controller_atlas_sara.png` | `controller_layout_sara.json` |
+   | Sara RTA版 | `controller_atlas_sara_rta.png` | `controller_layout_sara.json` |
 
 3. Input Overlayソース側でゲームパッドを選び、入力に応じて表示が変わるか確認します。反応しない場合は、Input Overlayプラグインの設定でゲームパッドフックを確認してください。
 
-2種類のPNGは同じJSONを使用します。Controllerだけを使う場合、Input OverlayプラグインのWebSocketサーバーは不要です。
+各テーマのPNG2種類は、それぞれのテーマ用JSONを共用します。Sara版には猫耳のLB/RB、長円形のLT/RT、肉球スティック、猫目風のView/Menu、鼻と口のHOMEがあります。Sara版のOBS実機表示は未確認です。Controllerだけを使う場合、Input OverlayプラグインのWebSocketサーバーは不要です。
 
 ## 対応する入力
 
@@ -75,8 +82,8 @@ OBS StudioとInput Overlayは別途導入してください。OBS Studio 33.0.0�
 | Controller画像が表示されない | Input Overlayソースが追加され、PNGとJSONのパスが正しいか |
 | ボタンを押しても表示が変化しない | ソース側のゲームパッド選択と、プラグイン設定側のゲームパッドフック |
 | 一部のボタンが反応しない | 上の対応入力と、選んだデバイスの論理入力。背面追加ボタンには下記の制約がある |
-| 表示位置がずれる | PNGと同じ`controller/`の共通JSONを指定しているか |
-| 標準版・高透過版を切り替えたい | ソースの画像指定をもう一方のPNGに変更する。JSONは共通 |
+| 表示位置がずれる | PNGに対応するテーマ用JSONを指定しているか |
+| 透過版を切り替えたい | 同じテーマのもう一方のPNGに変更する。JSONはそのテーマ用を維持 |
 
 詳しい確認方法は[導入手順](../docs/installation.ja.md)を参照してください。
 
@@ -96,6 +103,8 @@ OBS StudioとInput Overlayは別途導入してください。OBS Studio 33.0.0�
 画像を再生成する場合は、ソース一式でPython、Pillow、CairoSVGを用意し、`python controller/build_controller_overlay.py --output-dir PATH`で**新規または空の出力先**を明示します。スクリプトは配布済みPNG・JSONとREADMEの上書きを拒否します。フォント描画は生成環境によって異なるため、配布画像を置き換える前に表示を比較してください。
 
 `controller/verify_layout.py`はPythonとPillowで配布PNGとJSONの寸法・配置を検査します。実行例は`python -X utf8 controller/verify_layout.py`です。この静的検査はOBS上での全入力の動作確認には代わりません。
+
+Sara版の再生成は`python controller/build_sara_overlay.py --output-dir PATH`で新規または空の出力先を指定します。Sara版の静的検査は`python -X utf8 controller/verify_sara_layout.py`で実行できます。再生成時のフォント差異によって、完成版PNGとバイト一致しない場合があります。
 
 ## ライセンス
 

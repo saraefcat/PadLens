@@ -38,12 +38,15 @@ GitHubのソースまたは配布ZIPなど、入手したPadLensのファイル�
    | --- | --- | --- |
    | 標準版 | `controller_atlas.png` | `controller_layout.json` |
    | 高透過版 | `controller_atlas_light.png` | `controller_layout.json` |
+   | Sara通常版 | `controller_atlas_sara.png` | `controller_layout_sara.json` |
+   | Sara RTA版 | `controller_atlas_sara_rta.png` | `controller_layout_sara.json` |
 
 3. Input Overlayソース側でゲームパッドを選択します。
 4. ゲームパッドを操作し、入力に応じて表示が変わるか確認します。
 
 - 反応しない場合は、OBSの「ツール」から開くInput Overlayプラグインの設定でゲームパッドフックを確認してください。
 - **Controller単独利用にはWebSocketサーバーは不要**です。
+- Sara版には猫耳のLB/RB、長円形のLT/RT、肉球スティック、猫目風のView/Menu、鼻と口のHOMEがあります。Sara版のOBS実機表示は未確認です。
 
 機能と制約は[Controllerの詳細](../controller/README.ja.md)を参照してください。
 
@@ -69,7 +72,7 @@ Historyでは**ブラウザソース**を使用します。Input Overlayソー�
 
 | 症状 | 最初に確認すること |
 | --- | --- |
-| Controller画像が表示されない | Input Overlayソースのプロパティで、`controller/`のPNGと共通JSONを指定したか。 |
+| Controller画像が表示されない | Input Overlayソースのプロパティで、対応するPNGとJSONの組を指定したか。 |
 | Controllerのボタンが反応しない | Input Overlayソース側のゲームパッド選択と、プラグイン設定側のゲームパッドフックを確認します。 |
 | History画面が表示されない | ブラウザソースのローカルファイル指定と、`history/`のフォルダー構成を確認します。 |
 | HistoryのWebSocketが接続されない | プラグイン設定でサーバーの有効化と`127.0.0.1:16899`での待受を確認します。Windowsでは`history/check_websocket.ps1`で待受を読み取り専用で確認できます。 |

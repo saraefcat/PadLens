@@ -38,12 +38,14 @@ Obtain and extract the PadLens source from GitHub or a PadLens distribution ZIP.
    | --- | --- | --- |
    | Standard | `controller_atlas.png` | `controller_layout.json` |
    | Lighter transparency | `controller_atlas_light.png` | `controller_layout.json` |
+   | Sara | `controller_atlas_sara.png` | `controller_layout_sara.json` |
+   | Sara RTA | `controller_atlas_sara_rta.png` | `controller_layout_sara.json` |
 
 3. Select the gamepad in the Input Overlay source.
 4. Use the gamepad and check that the display responds.
 
 - If it does not respond, check the gamepad hook in the Input Overlay **plugin settings** under OBS **Tools**.
-- **Controller alone does not need the WebSocket server.**
+- **Controller alone does not need the WebSocket server.** Sara has cat-ear LB/RB, oval LT/RT indicators, paw-print sticks, eye-shaped View/Menu controls, and a nose-and-mouth HOME control. Sara's OBS rendering remains unverified.
 
 See the [Controller guide](../controller/README.md) for features and limitations.
 
@@ -69,7 +71,7 @@ See the [History guide](../history/README.md) for settings and features.
 
 | Symptom | First check |
 | --- | --- |
-| Controller image is missing | The PNG and shared JSON selected in the Input Overlay source properties |
+| Controller image is missing | The matching PNG and JSON selected in the Input Overlay source properties |
 | Controller buttons do not respond | Gamepad selection in the source and the gamepad hook in the plugin settings |
 | History page is missing | Browser source Local file path and the intact `history/` directory |
 | History WebSocket cannot connect | Server enabled and listening on `127.0.0.1:16899` in the plugin settings; `history/check_websocket.ps1` provides a read-only Windows listener check |

@@ -10,6 +10,8 @@ PadLensは、[OBS Studio](https://obsproject.com/)と[Input Overlay](https://git
 
 **Controller Overlay** — 透過したコントローラーに現在の入力を表示します。
 
+Saraテーマには、猫耳のLB/RB、長円形のLT/RT、肉球スティック、猫目風のView/Menu、鼻と口のHOMEがあります。Sara版のOBS実機表示は未確認です。
+
 <a href="docs/images/controller-preview.png"><img src="docs/images/controller-preview.png" alt="合成背景上のController表示" width="600"></a>
 
 **Input History** — 直近の入力を縦に並べます。左は保存済み設定がない場合の表示、右は設定画面の操作例です。
@@ -55,6 +57,8 @@ OBS Studio 33.0.0（ポータブル版）とInput Overlay 5.1.2の組み合わ�
    | --- | --- | --- |
    | 標準版 | `controller_atlas.png` | `controller_layout.json` |
    | 高透過版 | `controller_atlas_light.png` | `controller_layout.json` |
+   | Sara通常版 | `controller_atlas_sara.png` | `controller_layout_sara.json` |
+   | Sara RTA版 | `controller_atlas_sara_rta.png` | `controller_layout_sara.json` |
 
 3. Input Overlayソース側でゲームパッドを選びます。反応しない場合は、Input Overlayプラグインの設定でゲームパッドフックも確認してください。Controllerだけを使う場合、History用WebSocketの設定は不要です。
 
@@ -71,7 +75,7 @@ OBS Studio 33.0.0（ポータブル版）とInput Overlay 5.1.2の組み合わ�
 
 | 症状 | 最初に確認すること |
 | --- | --- |
-| Controllerが表示されない | Input Overlayソースに、同じフォルダのPNGと共通JSONを指定したか |
+| Controllerが表示されない | Input Overlayソースに、対応するPNGとJSONの組を指定したか |
 | ボタンに反応しない | Input Overlayプラグインのゲームパッドフックと、Input Overlayソースで選んだデバイス |
 | Historyが接続されない | プラグイン設定のWebSocketサーバーが有効で、`127.0.0.1:16899`で待ち受けているか |
 | Historyが空白になる | HTMLと3つのJavaScriptが同じフォルダにあるか |

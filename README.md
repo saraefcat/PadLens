@@ -10,6 +10,8 @@ PadLens displays current and recent gamepad input in [OBS Studio](https://obspro
 
 **Controller Overlay** shows current input on a translucent controller. A standard and a lighter transparency PNG are available.
 
+The Sara theme adds cat-ear LB/RB, oval LT/RT indicators, paw-print sticks, eye-shaped View/Menu controls, and a nose-and-mouth HOME control. Its OBS rendering has not yet been physically verified.
+
 <a href="docs/images/controller-preview.png"><img src="docs/images/controller-preview.png" alt="Controller on a synthetic background" width="600"></a>
 
 **Input History** lists recent inputs. The left image shows the defaults with no saved preferences; the right image shows the settings panel.
@@ -53,6 +55,8 @@ See the [installation guide](docs/installation.md) for detailed steps. Start in 
    | --- | --- | --- |
    | Standard | `controller_atlas.png` | `controller_layout.json` |
    | Lighter transparency | `controller_atlas_light.png` | `controller_layout.json` |
+   | Sara | `controller_atlas_sara.png` | `controller_layout_sara.json` |
+   | Sara RTA | `controller_atlas_sara_rta.png` | `controller_layout_sara.json` |
 
 3. Select the gamepad in the Input Overlay source. If input does not appear, check the gamepad hook in the Input Overlay plugin settings. Controller alone does not need the History WebSocket server.
 
@@ -69,7 +73,7 @@ If input does not appear, check the plugin's gamepad hook and whether Windows re
 
 | Symptom | First check |
 | --- | --- |
-| Controller image is missing | The Input Overlay source points to a PNG and the shared JSON in `controller/` |
+| Controller image is missing | The Input Overlay source points to a matching PNG and JSON pair in `controller/` |
 | Buttons do not respond | The plugin's gamepad hook and the device selected in the Input Overlay source |
 | History cannot connect | The plugin WebSocket server is enabled and listens on `127.0.0.1:16899` |
 | History is blank | The HTML and three JavaScript files remain together in `history/` |

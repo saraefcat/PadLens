@@ -25,6 +25,11 @@ STABLE_SHA256 = {
     "history/history_core.js": "693e9ff908bd3c80d411cd1ed065c210e946b4de2eed9941adc1cce021b660e6",
     "history/user_config.js": "4c17875498e036f2b2c104dc46bfd9872d6620beeb65fc52671073fbc8758b84",
 }
+SARA_SHA256 = {
+    "controller/controller_atlas_sara.png": "f601c4473b5c4bebdfa0cf81e9ad95e2924cd8a30691c5f0130b35fed7a27dcb",
+    "controller/controller_atlas_sara_rta.png": "ebe81b946bf2608eda25501aa02ffa1f3d6afd236ab9c676005e50a79ef73c2b",
+    "controller/controller_layout_sara.json": "bd1ce2e498a1541c50da9edecf8a4cc657f7cd0c7e893b830e81b202882d278b",
+}
 DOCUMENTS = (
     "LICENSE", "README.md", "README.ja.md", "SECURITY.md",
     "controller/README.md", "controller/README.ja.md",
@@ -45,15 +50,16 @@ def digest(data: bytes) -> str:
 
 
 def load_files() -> dict[str, bytes]:
-    names = sorted((*STABLE_SHA256, *DOCUMENTS, *IMAGES))
+    names = sorted((*STABLE_SHA256, *SARA_SHA256, *DOCUMENTS, *IMAGES))
     result = {}
     for name in sorted(names):
         path = ROOT / name
         if path.is_symlink() or not path.is_file():
             raise ValueError(f"Missing or linked package input: {name}")
         data = path.read_bytes()
-        if name in STABLE_SHA256 and digest(data) != STABLE_SHA256[name]:
-            raise ValueError(f"Stable source hash mismatch: {name}")
+        expected = STABLE_SHA256.get(name, SARA_SHA256.get(name))
+        if expected is not None and digest(data) != expected:
+            raise ValueError(f"Controller or History source hash mismatch: {name}")
         result[name] = data
     return result
 
@@ -88,6 +94,28 @@ def check_relationships(files: dict[str, bytes]) -> None:
         x, y, w, h = element["mapping"]
         if not (0 <= x and 0 <= y and w > 0 and h > 0 and x + w <= width and y + h <= height):
             raise ValueError(f"Controller mapping outside PNG: {element.get('id')}")
+
+    sara = json.loads(files["controller/controller_layout_sara.json"])
+    sara_sizes = {
+        png_size(files["controller/controller_atlas_sara.png"]),
+        png_size(files["controller/controller_atlas_sara_rta.png"]),
+    }
+    if len(sara_sizes) != 1 or len(sara.get("elements", [])) != len(layout["elements"]):
+        raise ValueError("Sara atlas dimensions or element count differ")
+    sara_width, sara_height = sara_sizes.pop()
+    original_inputs = {element["id"]: element for element in layout["elements"]}
+    sara_inputs = {element["id"]: element for element in sara["elements"]}
+    if original_inputs.keys() != sara_inputs.keys():
+        raise ValueError("Sara input IDs differ")
+    for name, element in sara_inputs.items():
+        for field in ("type", "code", "side", "trigger_mode", "direction", "stick_radius"):
+            if element.get(field) != original_inputs[name].get(field):
+                raise ValueError(f"Sara input definition differs: {name}/{field}")
+        x, y, w, h = element["mapping"]
+        if not (0 <= x and 0 <= y and w > 0 and h > 0 and
+                x + w <= sara_width and y + h <= sara_height and
+                (element["type"] == 0 or y + 2 * h + 3 <= sara_height)):
+            raise ValueError(f"Sara mapping outside PNG: {name}")
 
 
 def check_local_link(name: str, target: str, files: dict[str, bytes]) -> None:

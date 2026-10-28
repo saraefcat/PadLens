@@ -34,8 +34,13 @@ All paths below are under `controller/`. Python, Pillow, and CairoSVG are not ne
 | `controller_atlas.png` | Standard transparency image | Included |
 | `controller_atlas_light.png` | Lighter transparency image | Included |
 | `controller_layout.json` | Shared Input Overlay layout for both images | Included |
+| `controller_atlas_sara.png` | Sara theme image | Included |
+| `controller_atlas_sara_rta.png` | Sara theme RTA image | Included |
+| `controller_layout_sara.json` | Shared Sara layout for both Sara images | Included |
 | `build_controller_overlay.py` | Developer image generator | Not included |
 | `verify_layout.py` | Developer image and layout check | Not included |
+| `build_sara_overlay.py` | Developer Sara image generator; requires Pillow and CairoSVG | Not included |
+| `verify_sara_layout.py` | Developer Sara image and layout check; requires Pillow | Not included |
 
 ## Installation
 
@@ -48,10 +53,12 @@ See the [detailed installation guide](../docs/installation.md). Keep the `contro
    | --- | --- | --- |
    | Standard | `controller_atlas.png` | `controller_layout.json` |
    | Lighter transparency | `controller_atlas_light.png` | `controller_layout.json` |
+   | Sara | `controller_atlas_sara.png` | `controller_layout_sara.json` |
+   | Sara RTA | `controller_atlas_sara_rta.png` | `controller_layout_sara.json` |
 
 3. Select the gamepad in the Input Overlay source and check that input changes the display. If it does not, check the gamepad hook in the Input Overlay plugin settings.
 
-Both PNGs use the same JSON. The plugin WebSocket server is not needed when using Controller alone.
+Each theme's two PNGs share its own JSON. Sara uses cat-ear LB/RB, oval LT/RT indicators, paw-print sticks, eye-shaped View/Menu controls, and a nose-and-mouth HOME control. Sara's OBS rendering remains unverified. The plugin WebSocket server is not needed when using Controller alone.
 
 ## Supported inputs
 
@@ -75,8 +82,8 @@ These inputs are defined in the layout JSON; this is not a claim that every phys
 | Controller image is missing | The Input Overlay source and the PNG/JSON paths |
 | Buttons do not change the display | Gamepad selection in the source and the plugin's gamepad hook |
 | Some buttons do not respond | The supported inputs above and the device's logical mapping; see the rear-button limitation below |
-| Display positions are offset | The PNG and shared JSON in the same `controller/` directory |
-| Want to switch transparency | Change the PNG in the source; keep the same JSON |
+| Display positions are offset | The PNG and its matching JSON in the same `controller/` directory |
+| Want to switch transparency | Change the PNG within the same theme; keep that theme's JSON |
 
 See the [installation guide](../docs/installation.md) for further checks.
 
@@ -96,6 +103,8 @@ Additional rear buttons appear only when remapped to supported logical inputs. U
 To regenerate images from the source checkout, install Python, Pillow, and CairoSVG, then run `python controller/build_controller_overlay.py --output-dir PATH` with a **new or empty output directory**. The script refuses to overwrite shipped PNG/JSON and README files. Font rendering may differ by environment, so compare the images before replacing shipped assets.
 
 `controller/verify_layout.py` uses Python and Pillow to check shipped PNG dimensions and layout. Run `python -X utf8 controller/verify_layout.py`. This static check does not replace testing every control in OBS.
+
+Regenerate Sara images with `python controller/build_sara_overlay.py --output-dir PATH`, using a new or empty directory. Run its static check with `python -X utf8 controller/verify_sara_layout.py`. System font differences can prevent regenerated PNGs from matching the shipped files byte for byte.
 
 ## License
 

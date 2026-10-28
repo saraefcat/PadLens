@@ -15,7 +15,7 @@ import re
 import shutil
 import uuid
 
-from package_release import check_markdown_links
+from package_release import SARA_SHA256, STABLE_SHA256, check_markdown_links, digest
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -31,10 +31,15 @@ PUBLIC_FILES = (
     "controller/README.md",
     "controller/README.ja.md",
     "controller/build_controller_overlay.py",
+    "controller/build_sara_overlay.py",
     "controller/controller_atlas.png",
     "controller/controller_atlas_light.png",
+    "controller/controller_atlas_sara.png",
+    "controller/controller_atlas_sara_rta.png",
     "controller/controller_layout.json",
+    "controller/controller_layout_sara.json",
     "controller/verify_layout.py",
+    "controller/verify_sara_layout.py",
     "history/README.md",
     "history/README.ja.md",
     "history/check_websocket.ps1",
@@ -138,7 +143,11 @@ def read_sources() -> tuple[dict[str, bytes], dict[str, str]]:
             raise ValueError(f"Missing or escaping source file: {name}")
         if any(part.is_symlink() for part in (path, *path.parents) if part != ROOT):
             raise ValueError(f"Linked source path: {name}")
-        files[name] = path.read_bytes()
+        data = path.read_bytes()
+        expected_hash = STABLE_SHA256.get(name, SARA_SHA256.get(name))
+        if expected_hash is not None and digest(data) != expected_hash:
+            raise ValueError(f"Source hash mismatch: {name}")
+        files[name] = data
     check_markdown_links(files)
     for name, data in files.items():
         if name == ".gitignore" or name.endswith((".md", ".py", ".js", ".html", ".json", ".ps1")):
