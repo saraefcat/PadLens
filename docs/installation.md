@@ -45,7 +45,7 @@ Obtain and extract the PadLens source from GitHub or a PadLens distribution ZIP.
 4. Use the gamepad and check that the display responds.
 
 - If it does not respond, check the gamepad hook in the Input Overlay **plugin settings** under OBS **Tools**.
-- **Controller alone does not need the WebSocket server.** Sara has cat-ear LB/RB, oval LT/RT indicators, paw-print sticks, eye-shaped View/Menu controls, and a nose-and-mouth HOME control. Sara's OBS rendering remains unverified.
+- **Controller alone does not need the WebSocket server.** Sara has cat-ear LB/RB, oval LT/RT indicators, paw-print sticks, eye-shaped View/Menu controls, and a nose-and-mouth HOME control.
 
 See the [Controller guide](../controller/README.md) for features and limitations.
 

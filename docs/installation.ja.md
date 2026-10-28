@@ -46,7 +46,7 @@ GitHubのソースまたは配布ZIPなど、入手したPadLensのファイル�
 
 - 反応しない場合は、OBSの「ツール」から開くInput Overlayプラグインの設定でゲームパッドフックを確認してください。
 - **Controller単独利用にはWebSocketサーバーは不要**です。
-- Sara版には猫耳のLB/RB、長円形のLT/RT、肉球スティック、猫目風のView/Menu、鼻と口のHOMEがあります。Sara版のOBS実機表示は未確認です。
+- Sara版には猫耳のLB/RB、長円形のLT/RT、肉球スティック、猫目風のView/Menu、鼻と口のHOMEがあります。
 
 機能と制約は[Controllerの詳細](../controller/README.ja.md)を参照してください。
 
