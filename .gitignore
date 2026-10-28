@@ -1,0 +1,36 @@
+/.local/
+/dist/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+
+# JavaScript
+node_modules/
+.npm/
+.yarn/cache/
+.pnpm-store/
+coverage/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Editor settings
+.vscode/
+.idea/
+
+# Local secrets
+.env
+.env.*
+!.env.example

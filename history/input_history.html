@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark"><title>Input History v0.8.1</title>
+<style>
+  :root { --fg:#f1f6fa; --muted:#b2c6d0; --line:rgba(206,224,234,.37); }
+  * {box-sizing:border-box}
+  html,body {margin:0;background:transparent;overflow:hidden}
+  body {width:min(300px,100vw);height:100vh;font-family:Segoe UI,Arial,sans-serif;color:var(--fg)}
+  main {position:relative;width:260px;max-width:300px;min-width:0;padding:5px 5px 7px;--settings-top:39px}
+  header {position:relative;display:flex;align-items:center;justify-content:space-between;
+    margin-bottom:4px;padding:0 0 5px;border-bottom:1px solid var(--line)}
+  h1 {font-size:12px;letter-spacing:.04em;font-weight:700;margin:0;white-space:nowrap}
+  .actions {display:flex;align-items:center;gap:4px;min-width:0}
+  #mode {font-size:9px;letter-spacing:.045em;color:#c0d1dc;}
+  #status {font-size:9px;color:#a9beca;white-space:nowrap}
+  #status.error {color:#f1afa5}
+  /* Settings control remains reachable after header is hidden.
+     Mouse hover during OBS Interact reveals it; never rendered persistently on stream. */
+  #settings-btn {position:absolute;right:7px;top:6px;z-index:30;
+    border:1px solid #8096a6;background:#182834;color:#fff;
+    border-radius:6px;padding:4px 7px;font-size:14px;cursor:pointer;
+    opacity:0;pointer-events:none;transition:opacity .12s}
+  main:hover #settings-btn,#settings-btn:focus-visible,main.settings-open #settings-btn {
+    opacity:1;pointer-events:auto}
+  main.header-hidden header {display:none}
+  main.header-hidden {--settings-top:38px}
+  header .actions {margin-right:34px}
+  #settings-panel {display:none;position:absolute;z-index:20;top:var(--settings-top);left:0;
+    width:min(300px,100vw);max-height:calc(100vh - var(--settings-top) - 5px);
+    overflow-y:auto;overscroll-behavior:contain;
+    background:#142631;color:#f2f6f9;border:1px solid #b4c8d2;border-radius:9px;padding:12px;
+    box-shadow:0 5px 22px #000b;font-size:13px}
+  #settings-panel.open {display:block}
+  #settings-panel label {display:block;margin-bottom:11px}
+  .order-choices,.width-choices {display:flex;gap:6px;margin-top:7px}
+  .order-choice,.width-choice {flex:1;min-width:0;padding:9px 7px;background:#263b4b;color:#eff5f8;
+    border:1px solid #7c98a9;border-radius:5px;font-size:13px;cursor:pointer}
+  .order-choice[aria-pressed="true"],.width-choice[aria-pressed="true"] {background:#e8f0f5;color:#132633;border-color:#f1f7fb;font-weight:750}
+  .order-choice:hover,.order-choice:focus-visible,.width-choice:hover,.width-choice:focus-visible {outline:2px solid #e0ecf5;outline-offset:1px}
+  .width-choice {padding:9px 3px;font-variant-numeric:tabular-nums}
+  .width-group {margin-top:12px}
+  #settings-panel input {accent-color:#d8ecf5;vertical-align:middle}
+  .check-row {display:flex!important;align-items:center;gap:6px;cursor:pointer}
+  #clear-history-btn {border:1px solid #7c98a9;color:#f1f6fa;background:#263b4b;
+    padding:7px 10px;border-radius:6px;cursor:pointer;margin:2px 0 10px}
+  #clear-history-btn:hover,#clear-history-btn:focus-visible {outline:2px solid #e0ecf5;outline-offset:1px}
+  #settings-panel small {color:#b6c7d0;line-height:1.4;display:block}
+  /* v0.5: one translucent surface for the whole history, not one opaque card per event. */
+  .items {display:flex;flex-direction:column;gap:1px;width:100%;min-height:29px;
+    padding:3px 4px;border:1px solid rgba(190,211,226,.28);border-radius:8px;
+    background:rgba(15,29,40,.17)}
+  .event {display:flex;align-items:center;gap:6px;min-width:0;
+    min-height:27px;padding:2px 2px;border:0;border-radius:0;background:transparent;
+    transition:opacity .2s}
+  /* The newest input differs in typography, not a second filled panel. */
+  .event.latest .seq {color:#e4f1f8;font-weight:750}
+  .event.latest .chip {color:#fff;border-color:rgba(224,239,247,.44)}
+  .event.aging {opacity:.60}
+  .seq {width:22px;flex:0 0 22px;color:#98afbe;font-size:10px;font-variant-numeric:tabular-nums}
+  .keys {display:flex;align-items:center;flex-wrap:wrap;gap:3px;min-width:0;flex:1;overflow:visible}
+  .key-token {display:inline-flex;align-items:center;gap:2px;max-width:100%;min-width:0}
+  .chip {min-width:26px;max-width:100%;display:inline-block;text-align:center;padding:2px 5px;
+    background:rgba(219,235,244,.055);border:1px solid rgba(188,210,223,.24);
+    color:#eef5f9;border-radius:5px;font-size:16px;font-weight:720;
+    white-space:normal;overflow-wrap:anywhere;line-height:1.15}
+  .plus {font-size:12px;color:#aec4d0}
+  .peak {font-size:10px;color:#e0e9ee;white-space:nowrap}
+  .interval {display:flex;align-items:center;gap:5px;margin:0 0 0 27px;
+    min-height:14px;color:#dceaf1;font-weight:650;font-size:11px;
+    font-variant-numeric:tabular-nums;letter-spacing:.01em}
+  .interval .arrow {color:#c4d9e3;font-size:12px}
+  .interval .muted {color:#a6bbc7}
+  .hint {font-weight:400;font-size:10px;color:#b0c2cd;margin-left:3px}
+</style>
+</head>
+<body>
+<main>
+  <header id="history-header">
+    <h1>INPUT HISTORY</h1>
+    <div class="actions"><span id="mode"></span><span id="status">接続待機</span></div>
+  </header>
+  <button id="settings-btn" type="button" aria-label="入力履歴設定を開く"
+    aria-controls="settings-panel" aria-expanded="false" title="履歴の設定">⚙</button>
+  <section id="settings-panel" aria-label="履歴表示の設定">
+      <div role="group" aria-label="履歴の表示順">
+        <div>表示順</div>
+        <div class="order-choices">
+          <button class="order-choice" type="button" data-order="newest" aria-pressed="true">最新が上</button>
+          <button class="order-choice" type="button" data-order="oldest" aria-pressed="false">最新が下</button>
+        </div>
+      </div>
+      <div class="width-group" role="group" aria-label="履歴の表示幅">
+        <div>表示幅</div>
+        <div class="width-choices">
+          <button class="width-choice" type="button" data-width="240" aria-pressed="false">240px</button>
+          <button class="width-choice" type="button" data-width="260" aria-pressed="true">260px</button>
+          <button class="width-choice" type="button" data-width="300" aria-pressed="false">300px</button>
+        </div>
+      </div>
+      <label class="check-row" style="margin-top:16px"><input id="header-checkbox" type="checkbox">ヘッダー（タイトル・接続状態）を表示</label>
+      <label class="check-row"><input id="interval-checkbox" type="checkbox">入力間隔（Δt）を表示</label>
+      <label class="check-row"><input id="expire-checkbox" type="checkbox">古い履歴を自動消去する</label>
+      <button id="clear-history-btn" type="button">表示中の履歴を消去</button>
+      <small id="settings-connection" role="status">接続状態：待機</small>
+      <small>ヘッダーを隠しても、OBSの「ブラウザとの相互作用」で履歴の右上にマウスを置くと歯車が表示されます。幅は固定。長い同時押しは折り返し、縦に入りきらない場合は古い履歴から表示を省略します。Δtは入力開始時刻の差。</small>
+  </section>
+  <section class="items" id="items" aria-label="ゲームパッド入力履歴" aria-live="off"></section>
+</main>
+<script src="user_config.js"></script>
+<script src="history_core.js"></script>
+<script src="overlay.js"></script>
+</body>
+</html>

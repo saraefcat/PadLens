@@ -1,0 +1,305 @@
+{
+  "default_height": 0,
+  "default_width": 0,
+  "elements": [
+    {
+      "id": "body",
+      "mapping": [
+        0,
+        0,
+        1280,
+        720
+      ],
+      "pos": [
+        0,
+        0
+      ],
+      "type": 0,
+      "z_level": 0
+    },
+    {
+      "id": "a",
+      "mapping": [
+        8,
+        740,
+        86,
+        86
+      ],
+      "pos": [
+        980,
+        436
+      ],
+      "type": 2,
+      "z_level": 2,
+      "code": 0
+    },
+    {
+      "id": "b",
+      "mapping": [
+        106,
+        740,
+        86,
+        86
+      ],
+      "pos": [
+        1049,
+        365
+      ],
+      "type": 2,
+      "z_level": 2,
+      "code": 1
+    },
+    {
+      "id": "x",
+      "mapping": [
+        204,
+        740,
+        86,
+        86
+      ],
+      "pos": [
+        911,
+        365
+      ],
+      "type": 2,
+      "z_level": 2,
+      "code": 2
+    },
+    {
+      "id": "y",
+      "mapping": [
+        302,
+        740,
+        86,
+        86
+      ],
+      "pos": [
+        980,
+        292
+      ],
+      "type": 2,
+      "z_level": 2,
+      "code": 3
+    },
+    {
+      "id": "dpad_up",
+      "mapping": [
+        400,
+        740,
+        60,
+        60
+      ],
+      "pos": [
+        459,
+        379
+      ],
+      "type": 2,
+      "z_level": 2,
+      "code": 11
+    },
+    {
+      "id": "dpad_down",
+      "mapping": [
+        472,
+        740,
+        60,
+        60
+      ],
+      "pos": [
+        459,
+        511
+      ],
+      "type": 2,
+      "z_level": 2,
+      "code": 12
+    },
+    {
+      "id": "dpad_left",
+      "mapping": [
+        544,
+        740,
+        60,
+        60
+      ],
+      "pos": [
+        393,
+        445
+      ],
+      "type": 2,
+      "z_level": 2,
+      "code": 13
+    },
+    {
+      "id": "dpad_right",
+      "mapping": [
+        616,
+        740,
+        60,
+        60
+      ],
+      "pos": [
+        525,
+        445
+      ],
+      "type": 2,
+      "z_level": 2,
+      "code": 14
+    },
+    {
+      "id": "lb",
+      "mapping": [
+        688,
+        740,
+        168,
+        58
+      ],
+      "pos": [
+        238,
+        106
+      ],
+      "type": 2,
+      "z_level": 2,
+      "code": 9
+    },
+    {
+      "id": "rb",
+      "mapping": [
+        868,
+        740,
+        168,
+        58
+      ],
+      "pos": [
+        874,
+        106
+      ],
+      "type": 2,
+      "z_level": 2,
+      "code": 10
+    },
+    {
+      "id": "view",
+      "mapping": [
+        1048,
+        740,
+        57,
+        49
+      ],
+      "pos": [
+        555,
+        289
+      ],
+      "type": 2,
+      "z_level": 2,
+      "code": 4
+    },
+    {
+      "id": "menu",
+      "mapping": [
+        1117,
+        740,
+        57,
+        49
+      ],
+      "pos": [
+        661,
+        289
+      ],
+      "type": 2,
+      "z_level": 2,
+      "code": 6
+    },
+    {
+      "id": "l_stick",
+      "mapping": [
+        1186,
+        740,
+        130,
+        130
+      ],
+      "pos": [
+        217,
+        241
+      ],
+      "type": 5,
+      "z_level": 3,
+      "side": 0,
+      "stick_radius": 27
+    },
+    {
+      "id": "r_stick",
+      "mapping": [
+        1328,
+        740,
+        130,
+        130
+      ],
+      "pos": [
+        733,
+        410
+      ],
+      "type": 5,
+      "z_level": 3,
+      "side": 1,
+      "stick_radius": 27
+    },
+    {
+      "id": "lt",
+      "mapping": [
+        1470,
+        740,
+        232,
+        17
+      ],
+      "pos": [
+        258,
+        78
+      ],
+      "type": 6,
+      "z_level": 4,
+      "side": 0,
+      "trigger_mode": false,
+      "direction": 4
+    },
+    {
+      "id": "rt",
+      "mapping": [
+        1714,
+        740,
+        232,
+        17
+      ],
+      "pos": [
+        857,
+        78
+      ],
+      "type": 6,
+      "z_level": 4,
+      "side": 1,
+      "trigger_mode": false,
+      "direction": 4
+    },
+    {
+      "id": "home_guide",
+      "mapping": [
+        8,
+        1016,
+        84,
+        84
+      ],
+      "pos": [
+        597,
+        196
+      ],
+      "type": 2,
+      "z_level": 2,
+      "code": 5
+    }
+  ],
+  "flags": 7,
+  "overlay_height": 720,
+  "overlay_width": 1280,
+  "space_h": 0,
+  "space_v": 0,
+  "version": 508
+}
