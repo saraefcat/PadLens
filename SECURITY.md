@@ -28,7 +28,7 @@ Input History does not require adding an Input Overlay source. Both components r
 
 ### Reporting vulnerabilities
 
-GitHub Private Vulnerability Reporting is not configured. Do not post secrets or specific exploit steps in a public issue. These instructions will be updated after private reporting is enabled and verified.
+To report a vulnerability privately, open the [Security Advisories page](https://github.com/saraefcat/PadLens/security/advisories) and select **Report a vulnerability**. Do not post secrets or specific exploit steps in a public issue.
 
 ## 日本語
 
@@ -56,4 +56,4 @@ History単独利用ではInput Overlayソースの追加は不要です。どち
 
 ### 脆弱性の報告
 
-GitHubのPrivate Vulnerability Reportingは現在未設定です。秘密情報や具体的な悪用手順を公開Issueへ投稿しないでください。非公開報告機能を実際に有効化・確認した後に、この案内を更新します。
+脆弱性を非公開で報告する場合は、[Security Advisoriesページ](https://github.com/saraefcat/PadLens/security/advisories)の**Report a vulnerability**を選択してください。秘密情報や具体的な悪用手順を公開Issueへ投稿しないでください。
